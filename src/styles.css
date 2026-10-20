@@ -1,0 +1,161 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --font-display: "Orbitron", sans-serif;
+  --font-sans: "Space Grotesk", sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-glow: var(--glow);
+}
+
+:root {
+  --radius: 0.25rem;
+  --background: oklch(0.1 0.005 230);
+  --foreground: oklch(0.94 0.01 210);
+  --card: oklch(0.14 0.01 230);
+  --card-foreground: oklch(0.94 0.01 210);
+  --popover: oklch(0.14 0.01 230);
+  --popover-foreground: oklch(0.94 0.01 210);
+  --primary: oklch(0.86 0.15 200);
+  --primary-foreground: oklch(0.1 0.005 230);
+  --secondary: oklch(0.18 0.015 230);
+  --secondary-foreground: oklch(0.94 0.01 210);
+  --muted: oklch(0.18 0.015 230);
+  --muted-foreground: oklch(0.62 0.03 220);
+  --accent: oklch(0.86 0.15 200);
+  --accent-foreground: oklch(0.1 0.005 230);
+  --destructive: oklch(0.65 0.22 25);
+  --destructive-foreground: oklch(0.98 0 0);
+  --border: oklch(0.86 0.15 200 / 18%);
+  --input: oklch(0.86 0.15 200 / 20%);
+  --ring: oklch(0.86 0.15 200);
+  --glow: oklch(0.86 0.15 200);
+  --shadow-glow: 0 0 24px color-mix(in oklab, var(--glow) 55%, transparent);
+  --text-glow: 0 0 18px color-mix(in oklab, var(--glow) 70%, transparent);
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+  html {
+    background: var(--color-background);
+  }
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    overflow-x: hidden;
+  }
+  @media (pointer: fine) {
+    body,
+    a,
+    button {
+      cursor: none;
+    }
+  }
+  ::selection {
+    background: var(--primary);
+    color: var(--primary-foreground);
+  }
+}
+
+@utility text-glow {
+  text-shadow: var(--text-glow);
+}
+@utility shadow-glow {
+  box-shadow: var(--shadow-glow);
+}
+@utility grid-bg {
+  background-image:
+    linear-gradient(color-mix(in oklab, var(--primary) 7%, transparent) 1px, transparent 1px),
+    linear-gradient(90deg, color-mix(in oklab, var(--primary) 7%, transparent) 1px, transparent 1px);
+  background-size: 64px 64px;
+}
+@utility scanlines {
+  background: repeating-linear-gradient(
+    0deg,
+    transparent 0 2px,
+    color-mix(in oklab, var(--background) 60%, transparent) 2px 3px
+  );
+}
+@utility noise {
+  &::after {
+    content: "";
+    position: fixed;
+    inset: -50%;
+    pointer-events: none;
+    z-index: 60;
+    opacity: 0.05;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='.9'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    animation: grain 1s steps(4) infinite;
+  }
+}
+@keyframes grain {
+  0% {
+    transform: translate(0, 0);
+  }
+  25% {
+    transform: translate(-5%, 3%);
+  }
+  50% {
+    transform: translate(4%, -4%);
+  }
+  75% {
+    transform: translate(-3%, -2%);
+  }
+}
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+@keyframes spin-slow {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes flicker {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  92% {
+    opacity: 1;
+  }
+  93% {
+    opacity: 0.3;
+  }
+  94% {
+    opacity: 1;
+  }
+  97% {
+    opacity: 0.5;
+  }
+}
