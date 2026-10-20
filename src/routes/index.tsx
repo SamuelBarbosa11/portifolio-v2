@@ -89,7 +89,10 @@ function Index() {
       // Scroll horizontal da stack
       if (hTrack.current && hScroll.current) {
         gsap.to(hTrack.current, {
-          x: () => -(hTrack.current!.scrollWidth - innerWidth + 64),
+          x: () => {
+            const pad = window.innerWidth < 640 ? 24 : window.innerWidth < 1024 ? 48 : 64;
+            return -(hTrack.current!.scrollWidth - window.innerWidth + pad);
+          },
           ease: "none",
           scrollTrigger: {
             trigger: hScroll.current,
@@ -120,15 +123,14 @@ function Index() {
       );
       gsap.fromTo(
         "[data-project]",
-        { y: 120, opacity: 0, rotateX: -25 },
+        { y: 60, opacity: 0 },
         {
           y: 0,
           opacity: 1,
-          rotateX: 0,
-          stagger: 0.15,
-          duration: 1,
-          ease: "power4.out",
-          scrollTrigger: { trigger: "#projetos", start: "top 60%" },
+          stagger: 0.12,
+          duration: 0.8,
+          ease: "power3.out",
+          scrollTrigger: { trigger: "#projetos", start: "top 75%" },
         },
       );
     });
@@ -150,40 +152,43 @@ function Index() {
       <section
         id="inicio"
         ref={heroRef}
-        className="relative flex min-h-screen items-center justify-center overflow-hidden"
+        className="relative flex min-h-dvh items-center justify-center overflow-hidden px-4 sm:px-6"
       >
         <motion.div
           style={{ x: gridX, y: gridY }}
-          className="absolute -inset-10 grid-bg [mask-image:radial-gradient(ellipse_at_center,black_20%,transparent_70%)]"
+          className="grid-bg absolute -inset-10 mask-[radial-gradient(ellipse_at_center,black_20%,transparent_70%)]"
         />
         <motion.div
           style={{ y: foxY, scale: foxScale, rotateX: foxRX, rotateY: foxRY, opacity: fade }}
-          className="absolute [perspective:1000px]"
+          className="absolute perspective-[1000px]"
         >
-          <div className="relative h-[70vmin] w-[70vmin]">
+          <div className="relative h-[70vmin] max-h-125 w-[70vmin] max-w-125">
             <img
               src={fox}
               alt="Raposa geométrica com runas"
               width={1024}
               height={1024}
-              className="h-full w-full object-contain opacity-50 mix-blend-screen [mask-image:radial-gradient(circle,black_45%,transparent_70%)]"
+              className="h-full w-full [mask-image:radial-gradient(circle,black_45%,transparent_70%)] object-contain opacity-50 mix-blend-screen"
             />
-            <div className="absolute inset-[-8%] rounded-full border border-dashed border-primary/20 [animation:spin-slow_60s_linear_infinite]" />
-            <div className="absolute inset-[-16%] rounded-full border border-primary/10 [animation:spin-slow_90s_linear_infinite_reverse]" />
+            <div className="border-primary/20 absolute inset-[-8%] [animation:spin-slow_60s_linear_infinite] rounded-full border border-dashed" />
+            <div className="border-primary/10 absolute inset-[-16%] [animation:spin-slow_90s_linear_infinite_reverse] rounded-full border" />
           </div>
         </motion.div>
-        <div className="absolute inset-0 scanlines opacity-40" />
-        <motion.div style={{ y: titleY, opacity: fade }} className="relative z-10 px-6 text-center">
+        <div className="scanlines absolute inset-0 opacity-40" />
+        <motion.div
+          style={{ y: titleY, opacity: fade }}
+          className="relative z-10 w-full max-w-4xl px-2 text-center sm:px-6"
+        >
           <motion.p
-            initial={{ opacity: 0, letterSpacing: "1em" }}
-            animate={{ opacity: 1, letterSpacing: "0.5em" }}
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 2.8, duration: 1.2 }}
-            className="mb-6 font-mono text-xs uppercase text-primary"
+            className="text-primary mb-4 font-mono text-[11px] tracking-widest uppercase sm:mb-6 sm:text-xs sm:tracking-[0.35em] md:tracking-[0.5em]"
           >
             ᛋ // full-stack developer // ᛋ
           </motion.p>
           <h1
-            className="font-display text-5xl font-black uppercase leading-none tracking-tight sm:text-7xl md:text-8xl [animation:flicker_6s_infinite]"
+            className="font-display [animation:flicker_6s_infinite] text-4xl leading-none font-black tracking-tight uppercase min-[400px]:text-5xl sm:text-7xl md:text-8xl"
             data-cursor="text"
           >
             <RuneText text="Samuel" delay={2600} speed={110} />
@@ -199,7 +204,7 @@ function Index() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 4.2, duration: 1 }}
-            className="mx-auto mt-8 max-w-md text-muted-foreground"
+            className="text-muted-foreground mx-auto mt-6 max-w-md px-2 text-sm sm:mt-8 sm:text-base"
           >
             Criando experiências digitais na intersecção entre{" "}
             <span className="text-primary">estética</span>,{" "}
@@ -211,34 +216,34 @@ function Index() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 4.6 }}
-          className="absolute bottom-8 left-1/2 flex -translate-x-1/2 flex-col items-center gap-2"
+          className="absolute bottom-6 left-1/2 flex -translate-x-1/2 flex-col items-center gap-2 sm:bottom-8"
         >
-          <span className="font-mono text-[10px] uppercase tracking-[0.4em] text-muted-foreground">
+          <span className="text-muted-foreground font-mono text-[10px] tracking-[0.4em] uppercase">
             scroll
           </span>
           <motion.div
             animate={{ scaleY: [0, 1, 0], originY: [0, 0, 1] }}
             transition={{ repeat: Infinity, duration: 2 }}
-            className="h-12 w-px bg-primary"
+            className="bg-primary h-10 w-px sm:h-12"
           />
         </motion.div>
-        <div className="absolute left-6 top-1/2 hidden -translate-y-1/2 flex-col gap-3 font-mono text-xs text-primary/40 md:flex">
+        <div className="text-primary/40 absolute top-1/2 left-4 hidden -translate-y-1/2 flex-col gap-3 font-mono text-xs md:flex lg:left-6">
           {"ᚠᚢᚦᚨᚱᚲ".split("").map((r) => (
             <span key={r}>{r}</span>
           ))}
         </div>
-        <div className="absolute right-6 top-1/2 hidden -translate-y-1/2 font-mono text-[10px] uppercase tracking-[0.3em] text-muted-foreground [writing-mode:vertical-rl] md:block">
+        <div className="text-muted-foreground absolute top-1/2 right-4 hidden -translate-y-1/2 font-mono text-[10px] tracking-[0.3em] uppercase [writing-mode:vertical-rl] md:block lg:right-6">
           Fortaleza — BR · 2026
         </div>
       </section>
 
       {/* MARQUEE */}
-      <div className="relative -rotate-2 border-y border-primary/30 bg-primary py-4">
+      <div className="border-primary/30 bg-primary relative -rotate-2 overflow-hidden border-y py-3 sm:py-4">
         <div className="flex w-max [animation:marquee_25s_linear_infinite]">
-          {Array.from({ length: 2 }).map((_, k) => (
+          {Array.from({ length: 3 }).map((_, k) => (
             <div
               key={k}
-              className="flex shrink-0 items-center gap-8 pr-8 font-display text-2xl font-black uppercase text-primary-foreground"
+              className="font-display text-primary-foreground flex shrink-0 items-center gap-6 pr-6 text-lg font-black uppercase sm:gap-8 sm:pr-8 sm:text-xl md:text-2xl"
             >
               {[
                 "Frontend",
@@ -264,34 +269,36 @@ function Index() {
       {/* SOBRE */}
       <section
         id="sobre"
-        className="relative mx-auto grid min-h-screen max-w-6xl items-center gap-16 px-6 py-32 md:grid-cols-[1fr_1.4fr]"
+        className="relative mx-auto grid min-h-screen max-w-6xl items-center gap-10 px-4 py-20 sm:gap-12 sm:px-6 sm:py-24 md:grid-cols-[1fr_1.4fr] md:gap-16 md:py-32"
       >
         <div
           data-parallax="-30"
-          className="pointer-events-none absolute -left-10 top-20 select-none font-display text-[20rem] font-black leading-none text-primary/5"
+          className="font-display text-primary/5 pointer-events-none absolute top-20 -left-6 overflow-hidden text-[12rem] leading-none font-black select-none sm:-left-10 sm:text-[16rem] md:text-[20rem]"
         >
           ᛊ
         </div>
         <div className="relative">
-          <p className="mb-4 font-mono text-xs uppercase tracking-[0.3em] text-primary">
+          <p className="text-primary mb-3 font-mono text-xs tracking-[0.3em] uppercase sm:mb-4">
             01 — Sobre
           </p>
-          <h2 className="font-display text-4xl font-bold uppercase leading-tight md:text-5xl">
+          <h2 className="font-display text-3xl leading-tight font-bold uppercase sm:text-4xl md:text-5xl">
             <RuneText text="Código com alma" />
           </h2>
           <div
             data-line
-            className="mt-6 h-px w-full origin-left bg-gradient-to-r from-primary to-transparent"
+            className="from-primary mt-4 h-px w-full origin-left bg-gradient-to-r to-transparent sm:mt-6"
           />
-          <div className="mt-8 grid grid-cols-3 gap-4">
+          <div className="mt-6 grid grid-cols-3 gap-2 sm:mt-8 sm:gap-4">
             {[
               ["∞", "Curiosidade"],
               ["Full", "Stack"],
               ["CC", "Graduando"],
             ].map(([a, b]) => (
-              <TiltCard key={b} className="border border-border bg-card p-4 text-center">
-                <div className="font-display text-2xl font-bold text-primary text-glow">{a}</div>
-                <div className="mt-1 font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
+              <TiltCard key={b} className="border-border bg-card border p-2.5 text-center sm:p-4">
+                <div className="font-display text-primary text-glow text-xl font-bold sm:text-2xl">
+                  {a}
+                </div>
+                <div className="text-muted-foreground mt-1 truncate font-mono text-[9px] tracking-wider uppercase sm:text-[10px] sm:tracking-widest">
                   {b}
                 </div>
               </TiltCard>
@@ -299,8 +306,8 @@ function Index() {
           </div>
           <Avatar />
         </div>
-        <div className="relative space-y-6 text-lg leading-relaxed text-muted-foreground">
-          <p className="text-2xl text-foreground">
+        <div className="text-muted-foreground relative space-y-4 text-base leading-relaxed sm:space-y-6 sm:text-lg">
+          <p className="text-foreground text-xl font-medium sm:text-2xl">
             <WordsReveal text="Sou Samuel Barbosa, graduando em Ciência da Computação e desenvolvedor full-stack em formação, apaixonado por criar experiências digitais modernas e visualmente envolventes." />
           </p>
           <p>
@@ -314,7 +321,7 @@ function Index() {
             whileInView={{ clipPath: "inset(0 0% 0 0)" }}
             viewport={{ once: true }}
             transition={{ duration: 1.2, ease: [0.76, 0, 0.24, 1] }}
-            className="border-l-2 border-primary pl-6 font-display text-xl text-primary text-glow"
+            className="border-primary font-display text-primary text-glow border-l-2 pl-4 text-lg sm:pl-6 sm:text-xl"
           >
             "Grandes produtos nascem onde estética, usabilidade e engenharia se encontram."
           </motion.blockquote>
@@ -325,57 +332,63 @@ function Index() {
       <section
         id="stack"
         ref={hScroll}
-        className="relative flex h-screen flex-col justify-center overflow-hidden"
+        className="relative flex min-h-[100dvh] flex-col justify-center overflow-hidden py-16 md:py-0"
       >
-        <div className="mb-10 px-8 md:px-16">
-          <p className="mb-4 font-mono text-xs uppercase tracking-[0.3em] text-primary">
+        <div className="mb-6 px-4 sm:mb-10 sm:px-8 md:px-16">
+          <p className="text-primary mb-3 font-mono text-xs tracking-[0.3em] uppercase sm:mb-4">
             02 — Arsenal
           </p>
-          <h2 className="font-display text-4xl font-bold uppercase md:text-6xl">
+          <h2 className="font-display text-3xl font-bold uppercase sm:text-4xl md:text-6xl">
             <RuneText text="Minhas runas" />
           </h2>
         </div>
-        <div ref={hTrack} className="flex gap-8 pl-8 md:pl-16">
+        <div ref={hTrack} className="flex gap-4 pl-4 sm:gap-6 sm:pl-8 md:gap-8 md:pl-16">
           {stack.map((s, i) => (
             <TiltCard
               key={s.g}
-              className="h-[50vh] w-[80vw] shrink-0 border border-border bg-card/60 p-8 backdrop-blur md:w-[38vw] [clip-path:polygon(24px_0,100%_0,100%_calc(100%-24px),calc(100%-24px)_100%,0_100%,0_24px)]"
+              className="border-border bg-card/60 flex min-h-[380px] w-[84vw] shrink-0 flex-col justify-between border p-5 backdrop-blur [clip-path:polygon(16px_0,100%_0,100%_calc(100%-16px),calc(100%-16px)_100%,0_100%,0_16px)] sm:min-h-[420px] sm:w-[60vw] sm:p-7 sm:[clip-path:polygon(24px_0,100%_0,100%_calc(100%-24px),calc(100%-24px)_100%,0_100%,0_24px)] md:h-[52vh] md:w-[38vw] md:p-8 lg:w-[32vw]"
             >
-              <div className="flex items-start justify-between">
-                <span className="font-mono text-xs text-muted-foreground">0{i + 1}</span>
-                <span className="font-display text-7xl text-primary/80 text-glow">{s.r}</span>
+              <div>
+                <div className="flex items-start justify-between">
+                  <span className="text-muted-foreground font-mono text-xs">0{i + 1}</span>
+                  <span className="font-display text-primary/80 text-glow text-5xl leading-none sm:text-6xl md:text-7xl">
+                    {s.r}
+                  </span>
+                </div>
+                <h3
+                  className="font-display mt-4 text-2xl font-bold uppercase sm:mt-6 sm:text-3xl"
+                  data-cursor="link"
+                  data-cursor-label="ver"
+                >
+                  <Scramble text={s.g} />
+                </h3>
               </div>
-              <h3
-                className="mt-6 font-display text-3xl font-bold uppercase"
-                data-cursor="link"
-                data-cursor-label="ver"
-              >
-                <Scramble text={s.g} />
-              </h3>
-              <ul className="mt-6 space-y-3">
+              <ul className="mt-4 space-y-2.5 sm:mt-6 sm:space-y-3">
                 {s.items.map((it) => (
                   <li
                     key={it}
-                    className="flex items-center gap-3 font-mono text-sm text-muted-foreground transition-colors hover:text-primary"
+                    className="text-muted-foreground hover:text-primary flex items-center gap-2.5 font-mono text-xs transition-colors sm:gap-3 sm:text-sm"
                   >
-                    <span className="h-px w-6 bg-primary" />
-                    {it}
+                    <span className="bg-primary h-px w-4 shrink-0 sm:w-6" />
+                    <span>{it}</span>
                   </li>
                 ))}
               </ul>
             </TiltCard>
           ))}
-          <div className="w-8 shrink-0" />
+          <div className="w-4 shrink-0 sm:w-8" />
         </div>
       </section>
 
       {/* PROJETOS */}
       <section
         id="projetos"
-        className="relative mx-auto min-h-screen max-w-6xl px-6 py-32 [perspective:1200px]"
+        className="relative mx-auto min-h-screen max-w-6xl px-4 py-20 [perspective:1200px] sm:px-6 sm:py-24 md:py-32"
       >
-        <p className="mb-4 font-mono text-xs uppercase tracking-[0.3em] text-primary">03 — Sagas</p>
-        <h2 className="mb-16 font-display text-4xl font-bold uppercase md:text-6xl">
+        <p className="text-primary mb-3 font-mono text-xs tracking-[0.3em] uppercase sm:mb-4">
+          03 — Sagas
+        </p>
+        <h2 className="font-display mb-10 text-3xl font-bold uppercase sm:mb-16 sm:text-4xl md:text-6xl">
           <RuneText text="Projetos" />
         </h2>
         <div className="space-y-px">
@@ -388,21 +401,26 @@ function Index() {
               data-project
               data-cursor="link"
               data-cursor-label="abrir"
-              className="group relative grid items-center gap-4 overflow-hidden border-t border-border py-10 md:grid-cols-[80px_1fr_1fr_auto]"
+              className="group border-border relative flex flex-col gap-3 overflow-hidden border-t py-6 sm:gap-4 sm:py-8 md:grid md:grid-cols-[60px_1.2fr_1.5fr_auto] md:items-center md:py-10"
             >
-              <div className="absolute inset-0 origin-left scale-x-0 bg-primary/5 transition-transform duration-500 group-hover:scale-x-100" />
-              <span className="relative font-mono text-sm text-primary">
-                {String(i + 1).padStart(2, "0")}
-              </span>
-              <h3 className="relative font-display text-3xl font-bold uppercase transition-transform duration-500 group-hover:translate-x-4 md:text-4xl">
+              <div className="bg-primary/5 absolute inset-0 origin-left scale-x-0 transition-transform duration-500 group-hover:scale-x-100" />
+              <div className="relative flex items-center justify-between md:block">
+                <span className="text-primary font-mono text-xs font-semibold sm:text-sm">
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+                <span className="text-muted-foreground border-border border px-1.5 py-0.5 font-mono text-[10px] uppercase md:hidden">
+                  Ver ↗
+                </span>
+              </div>
+              <h3 className="font-display relative text-2xl font-bold uppercase transition-transform duration-500 group-hover:translate-x-2 sm:text-3xl md:group-hover:translate-x-4">
                 <Scramble text={p.title} />
               </h3>
-              <p className="relative text-muted-foreground">{p.description}</p>
-              <div className="relative flex flex-wrap gap-2">
+              <p className="text-muted-foreground relative text-sm sm:text-base">{p.description}</p>
+              <div className="relative flex flex-wrap gap-1.5 pt-1 sm:gap-2 md:pt-0">
                 {p.tags.map((t) => (
                   <span
                     key={t}
-                    className="border border-border px-2 py-1 font-mono text-[10px] uppercase text-muted-foreground group-hover:border-primary group-hover:text-primary"
+                    className="border-border text-muted-foreground group-hover:border-primary group-hover:text-primary border px-2 py-0.5 font-mono text-[10px] uppercase transition-colors sm:py-1"
                   >
                     {t}
                   </span>
@@ -410,28 +428,28 @@ function Index() {
               </div>
             </a>
           ))}
-          <div className="border-t border-border" />
+          <div className="border-border border-t" />
         </div>
       </section>
 
       {/* CONTATO */}
       <section
         id="contato"
-        className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden px-6 text-center"
+        className="relative flex min-h-[100dvh] flex-col items-center justify-center overflow-hidden px-4 py-20 text-center sm:px-6"
       >
-        <div className="absolute inset-0 grid-bg [mask-image:radial-gradient(ellipse_at_center,black,transparent_70%)]" />
+        <div className="grid-bg pointer-events-none absolute inset-0 [mask-image:radial-gradient(ellipse_at_center,black,transparent_70%)]" />
         <div
           data-parallax="40"
-          className="absolute h-[60vmin] w-[60vmin] rounded-full border border-primary/20"
+          className="border-primary/20 pointer-events-none absolute h-[60vmin] w-[60vmin] rounded-full border"
         />
         <div
           data-parallax="-20"
-          className="absolute h-[80vmin] w-[80vmin] rotate-45 border border-primary/10"
+          className="border-primary/10 pointer-events-none absolute h-[80vmin] w-[80vmin] rotate-45 border"
         />
-        <p className="relative mb-6 font-mono text-xs uppercase tracking-[0.3em] text-primary">
+        <p className="text-primary relative mb-4 font-mono text-xs tracking-[0.3em] uppercase sm:mb-6">
           04 — Contato
         </p>
-        <h2 className="relative font-display text-5xl font-black uppercase leading-none md:text-8xl">
+        <h2 className="font-display relative text-3xl leading-none font-black uppercase min-[400px]:text-4xl sm:text-6xl md:text-8xl">
           <RuneText text="Vamos criar" />
           <br />
           <RuneText
@@ -441,14 +459,14 @@ function Index() {
             runeClass="text-foreground/60"
           />
         </h2>
-        <p className="relative mt-8 max-w-md text-muted-foreground">
+        <p className="text-muted-foreground relative mt-6 max-w-md px-2 text-sm sm:mt-8 sm:text-base">
           <WordsReveal text="Transformando ideias em soluções digitais impactantes. Me chame para conversar." />
         </p>
-        <div className="relative mt-12 flex flex-wrap justify-center gap-4">
-          <Magnetic>
+        <div className="relative mt-8 flex w-full max-w-md flex-col flex-wrap items-stretch justify-center gap-3 sm:mt-12 sm:max-w-none sm:flex-row sm:items-center sm:gap-4">
+          <Magnetic className="w-full sm:w-auto">
             <a
               href="mailto:samuelmbarbosa1107@gmail.com"
-              className="block border border-primary bg-primary px-8 py-4 font-mono text-sm uppercase tracking-widest text-primary-foreground shadow-glow transition-colors hover:bg-transparent hover:text-primary"
+              className="border-primary bg-primary text-primary-foreground shadow-glow hover:text-primary block w-full border px-6 py-3.5 text-center font-mono text-xs tracking-widest uppercase transition-colors hover:bg-transparent sm:w-auto sm:px-8 sm:py-4 sm:text-sm"
             >
               <Scramble text="Enviar e-mail" runeClass="opacity-60" />
             </a>
@@ -457,19 +475,19 @@ function Index() {
             ["GitHub", "https://github.com/SamuelBarbosa11"],
             ["LinkedIn", "https://www.linkedin.com/in/samuel-miguel-barbosa/"],
           ].map(([s, h]) => (
-            <Magnetic key={s}>
+            <Magnetic key={s} className="w-full sm:w-auto">
               <a
                 href={h}
                 target="_blank"
                 rel="noreferrer"
-                className="block border border-border px-8 py-4 font-mono text-sm uppercase tracking-widest transition-colors hover:border-primary hover:text-primary"
+                className="border-border hover:border-primary hover:text-primary block w-full border px-6 py-3.5 text-center font-mono text-xs tracking-widest uppercase transition-colors sm:w-auto sm:px-8 sm:py-4 sm:text-sm"
               >
                 <Scramble text={s!} />
               </a>
             </Magnetic>
           ))}
         </div>
-        <footer className="absolute bottom-6 font-mono text-[10px] uppercase tracking-[0.3em] text-muted-foreground">
+        <footer className="text-muted-foreground relative mt-16 px-4 font-mono text-[9px] tracking-[0.2em] uppercase sm:absolute sm:bottom-6 sm:text-[10px] sm:tracking-[0.3em]">
           ᛋᚨᛗᚢᛖᛚ · © 2026 Samuel Barbosa
         </footer>
       </section>

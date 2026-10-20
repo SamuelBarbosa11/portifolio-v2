@@ -44,7 +44,7 @@ export function Avatar() {
   return (
     <div
       ref={ref}
-      className="relative mx-auto mt-10 aspect-[3/5] w-full max-w-xs [perspective:900px]"
+      className="relative mx-auto mt-8 sm:mt-10 aspect-3/5 w-full max-w-70 sm:max-w-xs perspective-[900px]"
     >
       <motion.div
         style={{ x: backX, y: backY }}
@@ -52,7 +52,7 @@ export function Avatar() {
       />
       <motion.div
         style={{ x: backX, y: backY }}
-        className="absolute inset-x-0 top-[10%] aspect-square rounded-full border border-dashed border-primary/30 [animation:spin-slow_40s_linear_infinite]"
+        className="absolute inset-x-0 top-[10%] aspect-square rounded-full border border-dashed border-primary/30 animate-[spin-slow_40s_linear_infinite]"
       />
       <motion.div
         style={{ x: backX }}
@@ -68,32 +68,36 @@ export function Avatar() {
         className="relative z-10 h-full w-full object-contain drop-shadow-[0_0_30px_color-mix(in_oklab,var(--primary)_35%,transparent)]"
       />
 
-      {["</>", "ᚠ", "{ }", "ᛒ"].map((o, k) => (
+      {[
+        { glyph: "</>", style: { left: "-2%", top: "18%" } },
+        { glyph: "ᚠ", style: { right: "2%", top: "26%" } },
+        { glyph: "{ }", style: { left: "0%", top: "62%" } },
+        { glyph: "ᛒ", style: { right: "4%", top: "72%" } },
+      ].map((item) => (
         <motion.span
-          key={o}
+          key={item.glyph}
           style={{
             x: frontX,
             y: frontY,
-            left: `${[-20, 260, -10, 250][k]}px`,
-            top: `${[90, 150, 330, 390][k]}px`,
+            ...item.style,
           }}
-          className="absolute z-20 font-mono text-sm text-primary text-glow"
+          className="absolute z-20 font-mono text-xs sm:text-sm text-primary text-glow select-none"
         >
-          {o}
+          {item.glyph}
         </motion.span>
       ))}
 
-      <div className="absolute -top-6 right-[-10%] z-30 max-w-[70%]">
+      <div className="absolute -top-7 right-0 sm:-right-4 z-30 max-w-[85%] sm:max-w-[75%]">
         <AnimatePresence mode="wait">
           <motion.div
             key={i}
             initial={{ opacity: 0, y: 10, scale: 0.9 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -10, scale: 0.9 }}
-            className="relative border border-primary bg-card px-3 py-2 font-mono text-xs text-foreground shadow-glow"
+            className="relative border border-primary bg-card/95 backdrop-blur-sm px-3 py-1.5 sm:py-2 font-mono text-[11px] sm:text-xs text-foreground shadow-glow"
           >
             {lines[i]}
-            <span className="absolute -bottom-2 left-6 h-3 w-3 rotate-45 border-b border-r border-primary bg-card" />
+            <span className="absolute -bottom-2 right-8 sm:left-6 h-3 w-3 rotate-45 border-b border-r border-primary bg-card" />
           </motion.div>
         </AnimatePresence>
       </div>

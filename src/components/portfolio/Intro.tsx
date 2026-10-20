@@ -20,9 +20,9 @@ export function Intro() {
       initial={{ clipPath: "inset(0 0 0 0)" }}
       animate={gone ? { clipPath: "inset(0 0 100% 0)" } : {}}
       transition={{ duration: 0.9, ease: [0.76, 0, 0.24, 1] }}
-      className="pointer-events-none fixed inset-0 z-[90] flex items-center justify-center bg-background"
+      className="pointer-events-none fixed inset-0 z-90 flex items-center justify-center bg-background px-4"
     >
-      <div className="relative h-56 w-56">
+      <div className="relative h-48 w-48 sm:h-56 sm:w-56 scale-90 sm:scale-100">
         {R.split("").map((r, i) => (
           <motion.span
             key={i}

@@ -66,12 +66,16 @@
   }
   html {
     background: var(--color-background);
+    overflow-x: hidden;
+    scroll-behavior: smooth;
   }
   body {
     background-color: var(--color-background);
     color: var(--color-foreground);
     font-family: var(--font-sans);
     overflow-x: hidden;
+    width: 100%;
+    min-height: 100dvh;
   }
   @media (pointer: fine) {
     body,

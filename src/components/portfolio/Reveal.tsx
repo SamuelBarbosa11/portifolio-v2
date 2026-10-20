@@ -58,11 +58,12 @@ export function Scramble({
 export function Magnetic({ children, className }: { children: ReactNode; className?: string }) {
   const ref = useRef<HTMLDivElement>(null);
   const move = (e: MouseEvent) => {
+    if (typeof window !== "undefined" && !window.matchMedia("(pointer: fine)").matches) return;
     const r = ref.current!.getBoundingClientRect();
     ref.current!.style.transform = `translate(${(e.clientX - r.left - r.width / 2) * 0.35}px, ${(e.clientY - r.top - r.height / 2) * 0.35}px)`;
   };
   const leave = () => {
-    ref.current!.style.transform = "";
+    if (ref.current) ref.current.style.transform = "";
   };
   return (
     <div
@@ -80,6 +81,7 @@ export function Magnetic({ children, className }: { children: ReactNode; classNa
 export function TiltCard({ children, className }: { children: ReactNode; className?: string }) {
   const ref = useRef<HTMLDivElement>(null);
   const move = (e: MouseEvent) => {
+    if (typeof window !== "undefined" && !window.matchMedia("(pointer: fine)").matches) return;
     const r = ref.current!.getBoundingClientRect();
     const px = (e.clientX - r.left) / r.width,
       py = (e.clientY - r.top) / r.height;
@@ -88,14 +90,16 @@ export function TiltCard({ children, className }: { children: ReactNode; classNa
     ref.current!.style.setProperty("--my", `${py * 100}%`);
   };
   const leave = () => {
-    ref.current!.style.transform = "";
+    if (ref.current) {
+      ref.current.style.transform = "";
+    }
   };
   return (
     <div
       ref={ref}
       onMouseMove={move}
       onMouseLeave={leave}
-      className={`group relative transition-transform duration-200 ease-out [transform-style:preserve-3d] ${className ?? ""}`}
+      className={`group relative transition-transform duration-200 ease-out transform-3d ${className ?? ""}`}
     >
       <div className="pointer-events-none absolute inset-0 opacity-0 transition-opacity group-hover:opacity-100 [background:radial-gradient(400px_circle_at_var(--mx)_var(--my),color-mix(in_oklab,var(--primary)_18%,transparent),transparent_60%)]" />
       {children}
