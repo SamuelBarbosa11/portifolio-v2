@@ -168,10 +168,10 @@ function Index() {
               alt="Raposa geométrica com runas"
               width={1024}
               height={1024}
-              className="h-full w-full [mask-image:radial-gradient(circle,black_45%,transparent_70%)] object-contain opacity-50 mix-blend-screen"
+              className="h-full w-full mask-[radial-gradient(circle,black_45%,transparent_70%)] object-contain opacity-50 mix-blend-screen"
             />
-            <div className="border-primary/20 absolute inset-[-8%] [animation:spin-slow_60s_linear_infinite] rounded-full border border-dashed" />
-            <div className="border-primary/10 absolute inset-[-16%] [animation:spin-slow_90s_linear_infinite_reverse] rounded-full border" />
+            <div className="border-primary/20 absolute inset-[-8%] animate-[spin-slow_60s_linear_infinite] rounded-full border border-dashed" />
+            <div className="border-primary/10 absolute inset-[-16%] animate-[spin-slow_90s_linear_infinite_reverse] rounded-full border" />
           </div>
         </motion.div>
         <div className="scanlines absolute inset-0 opacity-40" />
@@ -188,7 +188,7 @@ function Index() {
             ᛋ // full-stack developer // ᛋ
           </motion.p>
           <h1
-            className="font-display [animation:flicker_6s_infinite] text-4xl leading-none font-black tracking-tight uppercase min-[400px]:text-5xl sm:text-7xl md:text-8xl"
+            className="font-display animate-[flicker_6s_infinite] text-4xl leading-none font-black tracking-tight uppercase min-[400px]:text-5xl sm:text-7xl md:text-8xl"
             data-cursor="text"
           >
             <RuneText text="Samuel" delay={2600} speed={110} />
@@ -239,7 +239,7 @@ function Index() {
 
       {/* MARQUEE */}
       <div className="border-primary/30 bg-primary relative -rotate-2 overflow-hidden border-y py-3 sm:py-4">
-        <div className="flex w-max [animation:marquee_25s_linear_infinite]">
+        <div className="flex w-max animate-[marquee_25s_linear_infinite]">
           {Array.from({ length: 3 }).map((_, k) => (
             <div
               key={k}
@@ -286,7 +286,7 @@ function Index() {
           </h2>
           <div
             data-line
-            className="from-primary mt-4 h-px w-full origin-left bg-gradient-to-r to-transparent sm:mt-6"
+            className="from-primary mt-4 h-px w-full origin-left bg-linear-to-r to-transparent sm:mt-6"
           />
           <div className="mt-6 grid grid-cols-3 gap-2 sm:mt-8 sm:gap-4">
             {[
@@ -332,7 +332,7 @@ function Index() {
       <section
         id="stack"
         ref={hScroll}
-        className="relative flex min-h-[100dvh] flex-col justify-center overflow-hidden py-16 md:py-0"
+        className="relative flex min-h-dvh flex-col justify-center overflow-hidden py-16 md:py-0"
       >
         <div className="mb-6 px-4 sm:mb-10 sm:px-8 md:px-16">
           <p className="text-primary mb-3 font-mono text-xs tracking-[0.3em] uppercase sm:mb-4">
@@ -346,7 +346,7 @@ function Index() {
           {stack.map((s, i) => (
             <TiltCard
               key={s.g}
-              className="border-border bg-card/60 flex min-h-[380px] w-[84vw] shrink-0 flex-col justify-between border p-5 backdrop-blur [clip-path:polygon(16px_0,100%_0,100%_calc(100%-16px),calc(100%-16px)_100%,0_100%,0_16px)] sm:min-h-[420px] sm:w-[60vw] sm:p-7 sm:[clip-path:polygon(24px_0,100%_0,100%_calc(100%-24px),calc(100%-24px)_100%,0_100%,0_24px)] md:h-[52vh] md:w-[38vw] md:p-8 lg:w-[32vw]"
+              className="border-border bg-card/60 flex min-h-95 w-[84vw] shrink-0 flex-col justify-between border p-5 backdrop-blur [clip-path:polygon(16px_0,100%_0,100%_calc(100%-16px),calc(100%-16px)_100%,0_100%,0_16px)] sm:min-h-105 sm:w-[60vw] sm:p-7 sm:[clip-path:polygon(24px_0,100%_0,100%_calc(100%-24px),calc(100%-24px)_100%,0_100%,0_24px)] md:h-[52vh] md:w-[38vw] md:p-8 lg:w-[32vw]"
             >
               <div>
                 <div className="flex items-start justify-between">
@@ -383,7 +383,7 @@ function Index() {
       {/* PROJETOS */}
       <section
         id="projetos"
-        className="relative mx-auto min-h-screen max-w-6xl px-4 py-20 [perspective:1200px] sm:px-6 sm:py-24 md:py-32"
+        className="relative mx-auto min-h-screen max-w-6xl px-4 py-20 perspective-distant sm:px-6 sm:py-24 md:py-32"
       >
         <p className="text-primary mb-3 font-mono text-xs tracking-[0.3em] uppercase sm:mb-4">
           03 — Sagas
@@ -435,9 +435,9 @@ function Index() {
       {/* CONTATO */}
       <section
         id="contato"
-        className="relative flex min-h-[100dvh] flex-col items-center justify-center overflow-hidden px-4 py-20 text-center sm:px-6"
+        className="relative flex min-h-dvh flex-col items-center justify-center overflow-hidden px-4 py-20 text-center sm:px-6"
       >
-        <div className="grid-bg pointer-events-none absolute inset-0 [mask-image:radial-gradient(ellipse_at_center,black,transparent_70%)]" />
+        <div className="grid-bg pointer-events-none absolute inset-0 mask-[radial-gradient(ellipse_at_center,black,transparent_70%)]" />
         <div
           data-parallax="40"
           className="border-primary/20 pointer-events-none absolute h-[60vmin] w-[60vmin] rounded-full border"

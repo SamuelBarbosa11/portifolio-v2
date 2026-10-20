@@ -75,7 +75,7 @@ export function Cursor() {
 
   const size = mode === "link" ? (label ? 84 : 56) : mode === "text" ? 6 : 34;
   return (
-    <div className="pointer-events-none fixed inset-0 z-[100] hidden [@media(pointer:fine)]:block">
+    <div className="pointer-events-none fixed inset-0 z-100 hidden pointer-fine:block">
       <canvas ref={trail} className="absolute inset-0" />
       <motion.div style={{ x: sx, y: sy }} className="absolute left-0 top-0">
         <motion.div
